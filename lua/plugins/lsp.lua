@@ -4,8 +4,8 @@ return {
 		{ "williamboman/mason.nvim", config = true }, -- Auto-installs LSPs
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		{ "j-hui/fidget.nvim",       opts = {} }, -- LSP status updates
-		"hrsh7th/nvim-cmp",               -- Autocompletion
+		{ "j-hui/fidget.nvim", opts = {} }, -- LSP status updates
+		"hrsh7th/nvim-cmp", -- Autocompletion
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-nvim-lsp",
@@ -42,6 +42,9 @@ return {
 
 		-- Optimized Completion Setup
 		cmp.setup({
+			completion = {
+				autocomplete = false,
+			},
 			snippet = {
 				expand = function(args)
 					require("luasnip").lsp_expand(args.body)

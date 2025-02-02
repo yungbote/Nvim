@@ -99,8 +99,8 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- Press jk fast to exit insert mode
-vim.keymap.set("i", "jk", "<ESC>", opts)
-vim.keymap.set("i", "kj", "<ESC>", opts)
+--vim.keymap.set("i", "jk", "<ESC>", opts)
+--vim.keymap.set("i", "kj", "<ESC>", opts)
 
 -- Ensure LSP diagnostics start as OFF
 local diagnostics_active = false
@@ -117,6 +117,20 @@ vim.keymap.set("n", "<leader>do", function()
 		vim.diagnostic.disable()
 		print("LSP Diagnostics: OFF")
 	end
+end, { noremap = true, silent = true })
+
+-- Ensure nvim-cmp completion starts disabled
+local cmp_toggle = false
+
+-- Function to toggle auto-completion
+vim.keymap.set("n", "<leader>co", function()
+	cmp_toggle = not cmp_toggle
+	require("cmp").setup({
+		completion = {
+			autocomplete = cmp_toggle and { require("cmp.types").cmp.TriggerEvent.TextChanged } or false,
+		},
+	})
+	print("Auto-Completion: " .. (cmp_toggle and "ON" or "OFF"))
 end, { noremap = true, silent = true })
 
 -- Toggle for nvim colorizer

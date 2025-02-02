@@ -18,7 +18,7 @@ local env_var_nvim_theme = os.getenv("NVIM_THEME") or default_color_scheme
 local themes = {
 	cyber = "plugins.themes.cyber",
 	paper = "plugins.themes.paper",
-	solarized = "plugins.themes.solarized"
+	solarized = "plugins.themes.solarized",
 }
 
 require("lazy").setup({
@@ -26,10 +26,19 @@ require("lazy").setup({
 		cache = { enabled = true },
 		rtp = {
 			disabled_plugins = {
-				"gzip", "zipPlugin", "tarPlugin", "getscript", "vimball", "vimballPlugin",
-				"matchit", "matchparen", "logiPat", "netrw", "netrwPlugin"
-			}
-		}
+				"gzip",
+				"zipPlugin",
+				"tarPlugin",
+				"getscript",
+				"vimball",
+				"vimballPlugin",
+				"matchit",
+				"matchparen",
+				"logiPat",
+				"netrw",
+				"netrwPlugin",
+			},
+		},
 	},
 	require("plugins.treesitter"),
 	require("plugins.lsp"),
