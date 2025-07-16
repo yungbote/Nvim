@@ -37,12 +37,13 @@ return {
 				"tsx",
 				"css",
 				"html",
+				"rust",
 			},
 
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 
-			highlight = { enable = true },
+			highlight = { enable = true, disable = {} },
 			indent = { enable = true, disable = { "c", "cpp" } },
 			incremental_selection = {
 				enable = true,

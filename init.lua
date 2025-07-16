@@ -41,13 +41,14 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local default_color_scheme = "paper"
-local env_var_nvim_theme = os.getenv("NVIM_THEME") or default_color_scheme
+local default_color_scheme = "rosepine"
+local env_var_nvim_theme = default_color_scheme -- or os.getenv("NVIM_THEME")
 local themes = {
 	github = "plugins.themes.github",
 	cyber = "plugins.themes.cyber",
 	paper = "plugins.themes.paper",
 	solarized = "plugins.themes.solarized",
+	rosepine = "plugins.themes.rose-pine",
 }
 
 require("lazy").setup({
@@ -84,3 +85,6 @@ require("lazy").setup({
 	require("plugins.indent-blankline"),
 	require("plugins.misc"),
 })
+
+vim.cmd([[syntax off]])
+vim.cmd([[set nohlsearch]])

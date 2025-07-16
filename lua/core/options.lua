@@ -50,10 +50,11 @@ vim.opt.hidden = true
 vim.opt.history = 10000
 vim.opt.synmaxcol = 300
 vim.opt.re = 0
-vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
 vim.lsp.set_log_level("off")
 vim.opt.fillchars = { eob = " " } -- Remove end-of-buffer tildes for speed
 vim.cmd([[set nofixendofline]])
+vim.cmd("syntax off")
+vim.cmd("filetype off")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = false

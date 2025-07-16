@@ -5,8 +5,8 @@ return {
 		{ "williamboman/mason.nvim", config = true }, -- Auto-installs LSPs
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		{ "j-hui/fidget.nvim",       opts = {} }, -- LSP status updates
-		"hrsh7th/nvim-cmp",               -- Autocompletion
+		{ "j-hui/fidget.nvim", opts = {} }, -- LSP status updates
+		"hrsh7th/nvim-cmp", -- Autocompletion
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-nvim-lsp",
@@ -119,6 +119,15 @@ return {
 					lspconfig[server_name].setup(base_config)
 				end,
 			},
+		})
+
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				if client and client.server_capabilities.semanticTokensProvider then
+					client.server_capabilities.semanticTokensProvider = nil
+				end
+			end,
 		})
 	end,
 }

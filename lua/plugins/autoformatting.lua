@@ -66,8 +66,15 @@ return {
 		null_ls.setup({
 			sources = sources,
 			on_attach = function(client, bufnr)
-				-- If server supports formatting, auto-format on save
-				if client.supports_method("textDocument/formatting") then
+				local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				local block_formatting = {
+					cpp = true,
+					c = true,
+					hpp = true,
+					h = true,
+				}
+
+				if client.supports_method("textDocument/formatting") and not block_formatting[ft] then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						group = augroup,
