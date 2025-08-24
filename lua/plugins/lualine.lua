@@ -4,26 +4,25 @@ return {
 		"nvim-lualine/lualine.nvim",
 		config = function()
 			--------------------------------------------------------------------------
-			-- Moonlight palette (washed / pastel variant)
+			-- Zenbones Dark palette
 			--------------------------------------------------------------------------
 			local colors = {
-				bg = "#232136", -- base
-				fg = "#dad8ec", -- text
-				red = "#e58098", -- love
-				green = "#a3b0ac", -- leaf
-				yellow = "#f5e0c5", -- gold (unused but defined for completeness)
-				blue = "#6099b8", -- pine
-				magenta = "#c5b0e5", -- iris
-				cyan = "#a8c8d5", -- foam
-				orange = "#f5e0c5", -- gold (alias for modified diff state)
-				muted = "#807c98", -- muted
-				surface = "#2a273f", -- surface
+				bg = "#1c1917", -- zenbones dark background
+				fg = "#b4bdc3", -- zenbones dark foreground
+				red = "#de6e7c", -- zenbones dark red
+				green = "#819b69", -- zenbones dark green
+				yellow = "#b77e64", -- zenbones dark yellow
+				blue = "#6099c0", -- zenbones dark blue
+				magenta = "#b279a7", -- zenbones dark magenta
+				cyan = "#66a5ad", -- zenbones dark cyan
+				orange = "#b77e64", -- using yellow as orange for modified diff
+				muted = "#61676c", -- zenbones dark muted/comment
+				surface = "#2a2725", -- zenbones dark surface
 			}
-
 			--------------------------------------------------------------------------
-			-- Minimal Moonlight-matching Lualine theme table
+			-- Zenbones Dark Lualine theme table
 			--------------------------------------------------------------------------
-			local moon = {
+			local zenbones_dark = {
 				normal = {
 					a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
 					b = { fg = colors.fg, bg = colors.surface },
@@ -47,30 +46,25 @@ return {
 					c = { fg = colors.muted, bg = colors.bg },
 				},
 			}
-
 			--------------------------------------------------------------------------
 			-- Helpers
 			--------------------------------------------------------------------------
 			local hide_in_width = function()
 				return vim.fn.winwidth(0) > 80
 			end
-
 			local sections = {}
-
 			local icons = {
-				vim = "",
-				git = "",
+				vim = "",
+				git = "",
 				diff = { added = "󰐕", modified = "󰧞", removed = "󰍴" },
-				default = { left = "", right = " " },
-				round = { left = "", right = "" },
+				default = { left = "", right = " " },
+				round = { left = "", right = "" },
 				block = { left = "█", right = "█" },
-				arrow = { left = "", right = "" },
+				arrow = { left = "", right = "" },
 			}
-
 			local function ins_config(location, component)
 				sections["lualine_" .. location] = component
 			end
-
 			--------------------------------------------------------------------------
 			-- A section (mode)
 			--------------------------------------------------------------------------
@@ -82,7 +76,6 @@ return {
 					right_padding = 2,
 				},
 			})
-
 			--------------------------------------------------------------------------
 			-- B section (filename)
 			--------------------------------------------------------------------------
@@ -99,7 +92,6 @@ return {
 					end,
 				},
 			})
-
 			--------------------------------------------------------------------------
 			-- C section (git branch + diff)
 			--------------------------------------------------------------------------
@@ -121,12 +113,10 @@ return {
 					cond = hide_in_width,
 				},
 			})
-
 			--------------------------------------------------------------------------
 			-- X section (empty to keep spacing consistent)
 			--------------------------------------------------------------------------
 			ins_config("x", {})
-
 			--------------------------------------------------------------------------
 			-- Y section (progress + location)
 			--------------------------------------------------------------------------
@@ -149,7 +139,6 @@ return {
 				},
 				{ "location", cond = hide_in_width },
 			})
-
 			--------------------------------------------------------------------------
 			-- Z section (active LSP name)
 			--------------------------------------------------------------------------
@@ -171,13 +160,12 @@ return {
 					end,
 				},
 			})
-
 			--------------------------------------------------------------------------
 			-- Lualine setup
 			--------------------------------------------------------------------------
 			require("lualine").setup({
 				options = {
-					theme = moon, -- apply the custom Moonlight theme
+					theme = zenbones_dark, -- apply the custom Zenbones Dark theme
 					component_separators = "",
 					section_separators = { left = icons.default.right, right = icons.default.left },
 					disabled_filetypes = { "NvimTree", "starter" },

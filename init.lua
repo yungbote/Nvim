@@ -1,6 +1,5 @@
 require("core.options")
 require("core.keymaps")
-require("core.paste_guard")
 vim.g.loaded_matchparen = 1
 
 vim.filetype.add({
@@ -31,6 +30,23 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Wayland clipboard support
+if vim.fn.has("wsl") == 0 and vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") == 1 then
+	vim.g.clipboard = {
+		name = "wl-clipboard",
+		copy = {
+			["+"] = "wl-copy",
+			["*"] = "wl-copy",
+		},
+		paste = {
+			["+"] = "wl-paste --no-newline",
+			["*"] = "wl-paste --no-newline",
+		},
+		cache_enabled = 1,
+	}
+end
+vim.opt.clipboard = "unnamedplus"
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -41,13 +57,18 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local default_color_scheme = "rosepine"
+local default_color_scheme = "gravity"
 local env_var_nvim_theme = default_color_scheme -- or os.getenv("NVIM_THEME")
 local themes = {
+	gravity = "plugins.themes.gravity",
+	solarized = "plugins.themes.solarized-light",
+	zenbones = "plugins.themes.zenbones",
+	catpuccinlatte = "plugins.themes.catpuccinlatte",
+	jupyter = "plugins.themes.jupyter",
 	github = "plugins.themes.github",
 	cyber = "plugins.themes.cyber",
 	paper = "plugins.themes.paper",
-	solarized = "plugins.themes.solarized",
+	--solarized = "plugins.themes.solarized",
 	rosepine = "plugins.themes.rose-pine",
 }
 
@@ -84,6 +105,8 @@ require("lazy").setup({
 	require("plugins.alpha"),
 	require("plugins.indent-blankline"),
 	require("plugins.misc"),
+	require("plugins.iron"),
+	require("plugins.slime"),
 })
 
 vim.cmd([[syntax off]])

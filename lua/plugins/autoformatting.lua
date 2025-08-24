@@ -72,6 +72,7 @@ return {
 					c = true,
 					hpp = true,
 					h = true,
+					python = true,
 				}
 
 				if client.supports_method("textDocument/formatting") and not block_formatting[ft] then

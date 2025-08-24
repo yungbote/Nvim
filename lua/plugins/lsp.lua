@@ -40,7 +40,12 @@ return {
 		------------------------------------------------------------------------------
 		local servers = {
 			["typescript-language-server"] = {},
-			pyright = {},
+			pyright = {
+				on_attach = function(client, bufnr)
+					client.server_capabilities.documentFormattingProvider = false
+					client.server_capabilities.documentRangeFormattingProvider = false
+				end,
+			},
 			gopls = {},
 			clangd = clangd_config,
 			["clojure-lsp"] = {},
