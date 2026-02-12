@@ -23,7 +23,7 @@ return {
 				})
 			end,
 			keys = {
-				{ "<leader>w", ":Neotree toggle float<CR>",         silent = true, desc = "Float File Explorer" },
+				{ "<leader>w", ":Neotree toggle float<CR>", silent = true, desc = "Float File Explorer" },
 				{ "<leader>e", ":Neotree toggle position=left<CR>", silent = true, desc = "Left File Explorer" },
 				{
 					"<leader>ngs",
@@ -120,6 +120,9 @@ return {
 					hide_gitignored = false,
 					hide_hidden = false,
 					hide_by_name = { ".DS_Store", "thumbs.db", "node_modules", "__pycache__", ".git", ".venv" },
+
+					-- ✅ FIX: never render .git as a node (prevents duplicate node id crashes)
+					never_show = { ".git" },
 				},
 				follow_current_file = { enabled = false, leave_dirs_open = false },
 				hijack_netrw_behavior = "open_default",

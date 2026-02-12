@@ -38,6 +38,7 @@ return {
 				"css",
 				"html",
 				"rust",
+				"haskell",
 			},
 
 			-- Autoinstall languages that are not installed

@@ -1,11 +1,8 @@
+-- File: lua/plugins/misc.lua
 return {
 	{
 		-- Tmux & split window navigation
 		"christoomey/vim-tmux-navigator",
-	},
-	{
-		-- Detect tabstop and shiftwidth automatically
-		"tpope/vim-sleuth",
 	},
 	{
 		-- Powerful Git integration for Vim

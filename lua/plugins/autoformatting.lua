@@ -10,6 +10,25 @@ return {
 		local formatting = null_ls.builtins.formatting -- for setting up formatters
 		local diagnostics = null_ls.builtins.diagnostics -- for linters
 
+		-- Custom formatter: fourmolu (some none-ls builds don't ship a builtin)
+		local h = require("null-ls.helpers")
+		local methods = require("null-ls.methods")
+		local fourmolu = h.make_builtin({
+			name = "fourmolu",
+			meta = {
+				url = "https://github.com/fourmolu/fourmolu",
+				description = "Haskell code formatter",
+			},
+			method = methods.internal.FORMATTING,
+			filetypes = { "haskell" },
+			generator_opts = {
+				command = "fourmolu",
+				args = { "--stdin-input-file", "$FILENAME" },
+				to_stdin = true,
+			},
+			factory = h.formatter_factory,
+		})
+
 		-- Specify which external tools should be installed by Mason
 		require("mason-null-ls").setup({
 			ensure_installed = {
@@ -20,6 +39,7 @@ return {
 				"shfmt",
 				"checkmake",
 				"ruff",
+				"fourmolu",
 				--"ast-grep",
 			},
 			automatic_installation = true,
@@ -29,6 +49,9 @@ return {
 		local sources = {
 			diagnostics.checkmake,
 
+			-- Haskell
+			fourmolu,
+
 			formatting.clang_format.with({
 				filetypes = { "c", "cpp", "hpp", "objcpp", "cuda", "proto" },
 				extra_args = {
@@ -36,7 +59,7 @@ return {
 					table.concat({
 						"{",
 						"BasedOnStyle: llvm,",
-						"IndentWidth: 2,",
+						"IndentWidth: 4,",
 						"AccessModifierOffset: 2,",
 						"IndentAccessModifiers: true,",
 						"NamespaceIndentation: All,",

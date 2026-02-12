@@ -65,6 +65,7 @@ return {
 			html = { filetypes = { "html", "twig", "hbs" } },
 			cssls = {},
 			jsonls = {},
+			hls = {},
 		}
 
 		------------------------------------------------------------------------------
@@ -112,6 +113,7 @@ return {
 				"html-lsp",
 				"css-lsp",
 				"json-lsp",
+				"haskell-language-server",
 				-- ... plus any formatters or linters you want for your other languages
 			},
 		})
@@ -126,13 +128,13 @@ return {
 			},
 		})
 
-		vim.api.nvim_create_autocmd("LspAttach", {
+		--[[vim.api.nvim_create_autocmd("LspAttach", {
 			callback = function(args)
 				local client = vim.lsp.get_client_by_id(args.data.client_id)
 				if client and client.server_capabilities.semanticTokensProvider then
 					client.server_capabilities.semanticTokensProvider = nil
 				end
 			end,
-		})
+		})]]
 	end,
 }
