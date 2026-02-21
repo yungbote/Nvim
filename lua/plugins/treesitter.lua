@@ -45,7 +45,9 @@ return {
 			auto_install = true,
 
 			highlight = { enable = true, disable = {} },
-			indent = { enable = true, disable = { "c", "cpp" } },
+			-- Tree-sitter indent is unreliable for Go while typing incomplete lines.
+			-- Use the native Go indent script instead.
+			indent = { enable = true, disable = { "c", "cpp", "go" } },
 			incremental_selection = {
 				enable = true,
 				keymaps = {

@@ -101,6 +101,7 @@ require("lazy").setup({
 	require("plugins.jup"),
 	require("plugins.treesitter"),
 	require("plugins.lsp"),
+	require("plugins.modern-code-intel"),
 	require("plugins.telescope"),
 	require("plugins.neo-tree"),
 	require("plugins.nvim-colorizer"),

@@ -102,9 +102,8 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 --vim.keymap.set("i", "jk", "<ESC>", opts)
 --vim.keymap.set("i", "kj", "<ESC>", opts)
 
--- Ensure LSP diagnostics start as OFF
-local diagnostics_active = false
-vim.diagnostic.disable()
+-- Keep diagnostics visible by default, but allow global toggling
+local diagnostics_active = true
 
 -- Toggle LSP diagnostics globally
 vim.keymap.set("n", "<leader>do", function()
@@ -119,18 +118,13 @@ vim.keymap.set("n", "<leader>do", function()
 	end
 end, { noremap = true, silent = true })
 
--- Ensure nvim-cmp completion starts disabled
-local cmp_toggle = false
+-- Completion is enabled by default (used by blink.cmp)
+vim.g.completion_enabled = true
 
 -- Function to toggle auto-completion
 vim.keymap.set("n", "<leader>co", function()
-	cmp_toggle = not cmp_toggle
-	require("cmp").setup({
-		completion = {
-			autocomplete = cmp_toggle and { require("cmp.types").cmp.TriggerEvent.TextChanged } or false,
-		},
-	})
-	print("Auto-Completion: " .. (cmp_toggle and "ON" or "OFF"))
+	vim.g.completion_enabled = not vim.g.completion_enabled
+	print("Auto-Completion: " .. (vim.g.completion_enabled and "ON" or "OFF"))
 end, { noremap = true, silent = true })
 
 -- Toggle for nvim colorizer

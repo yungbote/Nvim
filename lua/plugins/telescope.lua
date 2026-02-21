@@ -99,6 +99,7 @@ return {
         symbols = { 'Class', 'Function', 'Method', 'Constructor', 'Interface', 'Module', 'Property' },
       }
     end, { desc = '[S]each LSP document [S]ymbols' })
+    vim.keymap.set('n', '<leader>sws', builtin.lsp_dynamic_workspace_symbols, { desc = '[S]earch [W]orkspace [S]ymbols' })
     vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
     vim.keymap.set('n', '<leader>s/', function()
       builtin.live_grep {

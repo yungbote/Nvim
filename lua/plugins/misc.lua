@@ -19,9 +19,13 @@ return {
 	{
 		-- Autoclose parentheses, brackets, quotes, etc.
 		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = true,
-		opts = {},
+		lazy = false,
+		opts = {
+			disable_filetype = { "TelescopePrompt", "snacks_picker_input" },
+		},
+		config = function(_, opts)
+			require("nvim-autopairs").setup(opts)
+		end,
 	},
 	{
 		"mikesmithgh/kitty-scrollback.nvim",

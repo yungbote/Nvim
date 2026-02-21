@@ -84,36 +84,9 @@ return {
 			require("none-ls.formatting.ruff_format"),
 		}
 
-		-- Setup null-ls
-		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+		-- Setup null-ls without format-on-save hooks.
 		null_ls.setup({
 			sources = sources,
-			on_attach = function(client, bufnr)
-				local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-				local block_formatting = {
-					cpp = true,
-					c = true,
-					hpp = true,
-					h = true,
-					python = true,
-				}
-
-				if client.supports_method("textDocument/formatting") and not block_formatting[ft] then
-					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						group = augroup,
-						buffer = bufnr,
-						callback = function()
-							vim.lsp.buf.format({
-								async = false,
-								filter = function(client)
-									return client.name == "null-ls"
-								end,
-							})
-						end,
-					})
-				end
-			end,
 		})
-	end,
-}
+		end,
+	}
