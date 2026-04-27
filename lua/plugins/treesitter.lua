@@ -6,6 +6,8 @@ return {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 	},
 	config = function()
+		local syntax_highlighting_enabled = vim.g.syntax_highlighting_enabled ~= false
+
 		require("nvim-treesitter.configs").setup({
 			-- Add languages to be installed here that you want installed for treesitter
 			ensure_installed = {
@@ -44,7 +46,7 @@ return {
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 
-			highlight = { enable = true, disable = {} },
+			highlight = { enable = syntax_highlighting_enabled, disable = {} },
 			-- Tree-sitter indent is unreliable for Go while typing incomplete lines.
 			-- Use the native Go indent script instead.
 			indent = { enable = true, disable = { "c", "cpp", "go" } },

@@ -1,4 +1,5 @@
 -- File: init.lua
+require("core.syntax_toggle").load()
 require("core.options")
 require("core.keymaps")
 vim.g.loaded_matchparen = 1
@@ -63,7 +64,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local default_color_scheme = "rosepine"
+local default_color_scheme = "github"
 local env_var_nvim_theme = default_color_scheme
 local themes = {
 	gravity = "plugins.themes.gravity",

@@ -54,7 +54,6 @@ vim.opt.re = 0
 vim.lsp.set_log_level("off")
 vim.opt.fillchars = { eob = " " } -- Remove end-of-buffer tildes for speed
 vim.cmd([[set nofixendofline]])
-vim.cmd("syntax off")
 
 -- CHANGED: do NOT disable filetype detection; enable filetype + plugins + indent.
 vim.cmd("filetype plugin indent on")

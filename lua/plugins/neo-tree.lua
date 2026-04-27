@@ -1,3 +1,9 @@
+local has_magick = vim.fn.executable("magick") == 1
+local has_convert = vim.fn.executable("convert") == 1
+local has_identify = vim.fn.executable("identify") == 1
+local image_cli_ready = has_magick or (has_convert and has_identify)
+local image_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" }
+
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	event = "VeryLazy",
@@ -6,7 +12,15 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"MunifTanjim/nui.nvim",
-		"3rd/image.nvim",
+		{
+			"3rd/image.nvim",
+			opts = {
+				backend = "kitty",
+				processor = "magick_cli",
+				hijack_file_patterns = image_cli_ready and image_patterns or {},
+				max_height_window_percentage = 60,
+			},
+		},
 		{
 			"s1n7ax/nvim-window-picker",
 			version = "2.*",
@@ -35,6 +49,15 @@ return {
 		},
 	},
 	config = function()
+		if not image_cli_ready then
+			vim.schedule(function()
+				vim.notify(
+					"image.nvim disabled: install ImageMagick (`magick`, or `convert` + `identify`) to render images in Neo-tree",
+					vim.log.levels.WARN
+				)
+			end)
+		end
+
 		local signs = {
 			Error = " ",
 			Warn = " ",
@@ -109,6 +132,7 @@ return {
 					["m"] = "move",
 					["q"] = "close_window",
 					["R"] = "refresh",
+					["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = image_cli_ready } },
 					["?"] = "show_help",
 					["i"] = "show_file_details",
 				},

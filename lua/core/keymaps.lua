@@ -80,6 +80,11 @@ vim.keymap.set("n", "<leader>tp", ":tabp<CR>", opts) --  go to previous tab
 -- Toggle line wrapping
 vim.keymap.set("n", "<leader>lw", "<cmd>set wrap!<CR>", opts)
 
+-- Toggle syntax highlighting (Vim + Tree-sitter) and persist the state.
+vim.keymap.set("n", "<leader>th", function()
+	require("core.syntax_toggle").toggle()
+end, { noremap = true, silent = true, desc = "Toggle syntax highlighting" })
+
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)

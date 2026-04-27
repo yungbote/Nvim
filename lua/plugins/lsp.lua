@@ -19,6 +19,25 @@ return {
 			capabilities = blink.get_lsp_capabilities(capabilities)
 		end
 
+		-- Keep inlay hints enabled, but hide parameter-name hints at call sites.
+		if not vim.g.user_lsp_parameter_hints_filtered then
+			vim.g.user_lsp_parameter_hints_filtered = true
+			local parameter_hint_kind = 2
+			local original_on_inlayhint = vim.lsp.inlay_hint.on_inlayhint
+			vim.lsp.inlay_hint.on_inlayhint = function(err, result, ctx)
+				if type(result) == "table" then
+					local filtered = {}
+					for _, hint in ipairs(result) do
+						if hint.kind ~= parameter_hint_kind then
+							filtered[#filtered + 1] = hint
+						end
+					end
+					result = filtered
+				end
+				return original_on_inlayhint(err, result, ctx)
+			end
+		end
+
 		------------------------------------------------------------------------------
 		-- CLANGD SPECIFIC CONFIG
 		------------------------------------------------------------------------------
